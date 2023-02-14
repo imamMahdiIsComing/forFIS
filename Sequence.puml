@@ -1,11 +1,19 @@
 @startuml
 skinparam classAttributeIconSize 0
-class InitialNumber {
+abstract Number {
 +text: str
++number: int
++getNumber()
+}
+class InitialNumber {
 +number: str
 +getNumber()
 }
-
+class ChangedNumber {
++getNumber()
+}
+class NumberBase {
+}
 interface CommandsToDo {
 +startFiltering()
 }
@@ -24,12 +32,51 @@ class 1Adding {
 +execute()
 }
 
+class IndentRemover {
++indentIdentifier()
++remover()
+}
+
+class DashRemover {
++dashIdentifier()
++remover()
+}
+
+class TSFR {
++right10Symbolscounting()
++removingLast()
+}
+
+class Generalize {
++countryCodeAdder()
+}
+
 InitialNumber -> CommandsToDo
+NumberBase -|> Number
+Number --|> InitialNumber
+Number --|> ChangedNumber
+
 CommandsToDo <|--- FilterByIndentRemoving
 CommandsToDo <|-- FilterByDashRemoving
 CommandsToDo <|-- TenSymbolsFromRight
 CommandsToDo <|-- 1Adding
 
+IndentRemover <-- FilterMemory
+DashRemover <-- FilterMemory
+TSFR <-- FilterMemory
+Generalize <-- FilterMemory
+
+FilterByIndentRemoving ..|> IndentRemover
+FilterByDashRemoving ..|> DashRemover
+TenSymbolsFromRight ..|> TSFR
+1Adding ..|> Generalize
+
+FilterByIndentRemoving <.. FilterMemory
+FilterByDashRemoving <.. FilterMemory
+TenSymbolsFromRight <.. FilterMemory
+1Adding <.. FilterMemory
+
+FilterMemory .|> ChangedNumber
 @enduml
 
 
