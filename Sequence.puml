@@ -1,11 +1,35 @@
 @startuml
-
+skinparam classAttributeIconSize 0
 class InitialNumber {
-text: str
-number: str
-getNumber()
++text: str
++number: str
++getNumber()
 }
 
+interface CommandsToDo {
++startFiltering()
+}
+class FilterMemory
 
+class FilterByIndentRemoving {
++execute()
+}
+class FilterByDashRemoving {
++execute()
+}
+class TenSymbolsFromRight {
++execute()
+}
+class 1Adding {
++execute()
+}
+
+InitialNumber -> CommandsToDo
+CommandsToDo <|--- FilterByIndentRemoving
+CommandsToDo <|-- FilterByDashRemoving
+CommandsToDo <|-- TenSymbolsFromRight
+CommandsToDo <|-- 1Adding
 
 @enduml
+
+
